@@ -1,8 +1,9 @@
 package main
 
 import (
-	"deck/card"
 	"fmt"
+
+	"github.com/olaszm/go-deck/card"
 )
 
 func main() {
