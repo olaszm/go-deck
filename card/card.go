@@ -59,16 +59,16 @@ func (r Rank) String() string {
 }
 
 type Card struct {
-	suite Suite
-	rank  Rank
+	Suite Suite
+	Rank  Rank
 }
 
 func (c Card) String() string {
-	if c.suite == 5 {
+	if c.Suite == 5 {
 		return "Joker"
 	}
 
-	return fmt.Sprintf("%s - %s", c.suite, c.rank)
+	return fmt.Sprintf("%s - %s", c.Suite, c.Rank)
 }
 
 type Opts func(Deck) Deck
@@ -89,11 +89,11 @@ func AddJokers(count int) Opts {
 	}
 }
 
-func FilterOutCard(rank Rank) Opts {
+func FilterOutCard(Rank Rank) Opts {
 	return func(d Deck) Deck {
 		b := d[:0] // This trick creates an empty slice with the backing array's capacity and length
 		for _, c := range d {
-			if c.rank != rank {
+			if c.Rank != Rank {
 				b = append(b, c)
 			}
 		}
@@ -115,13 +115,13 @@ type Deck []Card
 
 func SortReverseValue() Opts {
 	return func(d Deck) Deck {
-		sort.SliceStable(d, func(i, j int) bool { return d[i].rank > d[j].rank })
+		sort.SliceStable(d, func(i, j int) bool { return d[i].Rank > d[j].Rank })
 		return d
 	}
 }
 
 func defaultSort(d Deck) Deck {
-	sort.SliceStable(d, func(i, j int) bool { return d[i].suite < d[j].suite })
+	sort.SliceStable(d, func(i, j int) bool { return d[i].Suite < d[j].Suite })
 	return d
 }
 
